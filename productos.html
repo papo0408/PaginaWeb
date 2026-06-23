@@ -323,7 +323,14 @@
                     const name = card.querySelector('h3').textContent;
                     const price = parsePrice(card.querySelector('.price').textContent);
                     const imageEl = card.querySelector('.product-image img');
-                    const image = imageEl ? imageEl.src : card.querySelector('.product-image').style.backgroundImage.slice(5, -2);
+                    let image = '';
+                    if (imageEl) {
+                        image = imageEl.src;
+                    } else {
+                        const bg = card.querySelector('.product-image').style.backgroundImage || '';
+                        const match = bg.match(/url\(["']?(.*?)["']?\)/);
+                        image = match ? match[1] : '';
+                    }
                     const item = cart.find(product => product.name === name);
 
                     if (item) item.qty += 1;
@@ -374,6 +381,18 @@
 
             showSection(window.location.hash.replace('#', '') || 'inicio');
             renderCart();
+
+            // Fallback para imágenes rotas o ausentes
+            const PLACEHOLDER_IMG = 'https://via.placeholder.com/600x400?text=Sin+imagen';
+            document.body.addEventListener('error', function (e) {
+                const tgt = e.target;
+                if (tgt && tgt.tagName === 'IMG') {
+                    if (!tgt.dataset.fallback) {
+                        tgt.dataset.fallback = '1';
+                        tgt.src = PLACEHOLDER_IMG;
+                    }
+                }
+            }, true);
         });
     </script>
 

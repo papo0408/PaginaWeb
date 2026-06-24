@@ -13,6 +13,7 @@
             <a href="#inicio" class="nav-link active" data-target="inicio">Inicio</a>
             <a href="#productos" class="nav-link" data-target="productos">Productos</a>
             <a href="#carrito" class="nav-link cart-link" data-target="carrito">🛒 Carrito <span class="cart-count hidden">0</span></a>
+            <a href="#contacto" class="nav-link" data-target="contacto">Contacto</a>
         </nav>
     </header>
 
@@ -176,7 +177,13 @@
                 </div>
                 <div class="product-details">
                     <h3>Set de cuidado personal</h3>
-                    </div>
+                    <p>Cuidá tu piel con productos naturales y fórmula delicada.</p>
+                    <span class="price">$12,299</span>
+                    <button>Agregar al carrito</button>
+                </div>
+            </article>
+        </div>
+    </section>
 
     <section id="carrito" class="main-section hidden">
         <div class="cart-panel">
@@ -309,14 +316,16 @@
                 const target = event.target;
                 if (!target) return;
 
-                if (target.matches && target.matches('.nav-link')) {
+                const navLink = target.closest && target.closest('.nav-link');
+                if (navLink) {
                     event.preventDefault();
-                    showSection(target.dataset.target);
+                    showSection(navLink.dataset.target);
                     return;
                 }
 
-                if (target.matches && target.matches('.product-card button')) {
-                    const card = target.closest('.product-card');
+                const productButton = target.closest && target.closest('.product-card button');
+                if (productButton) {
+                    const card = productButton.closest('.product-card');
                     if (!card) return;
                     const nameEl = card.querySelector('h3');
                     const priceEl = card.querySelector('.price');
@@ -340,8 +349,9 @@
                     return;
                 }
 
-                if (target.matches && target.matches('.btn-remove')) {
-                    const idx = Number(target.dataset.index);
+                const removeBtn = target.closest && target.closest('.btn-remove');
+                if (removeBtn) {
+                    const idx = Number(removeBtn.dataset.index);
                     if (!Number.isNaN(idx)) {
                         cart.splice(idx, 1);
                         renderCart();

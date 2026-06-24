@@ -7,7 +7,9 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    background:url(Fondo.jpg);
+    /* Fondo principal: conservar Fondo.jpg (si no existe, se usará el color de fondo) */
+    background: url('Fondo.jpg') center/cover no-repeat;
+    background-color: #f8fafc;
 }
 
 .site-header {

@@ -7,7 +7,6 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    /* Fondo principal: conservar fondo.jpg para que la ruta sea exacta */
     background: url('fondo.jpg') center/cover no-repeat;
     background-color: #f8fafc;
 }
